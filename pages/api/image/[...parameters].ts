@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
 import IIIF from "iiif-processor";
 import absoluteUrl from "next-absolute-url";
 import { createReadStream } from "fs";
@@ -20,6 +20,17 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const result = await processor.execute();
   response.setHeader("Content-Type", "image/jpeg");
   response.send(result.body);
+};
+
+export const getServerSideProps: GetServerSideProps = async (props) => {
+  props.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=3600, stale-while-revalidate=86000"
+  );
+
+  return {
+    props: {},
+  };
 };
 
 export default handler;
