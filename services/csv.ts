@@ -1,11 +1,21 @@
-const csvToJson = (csv) => {
+export interface EntryShape {
+  id: string;
+  title: string;
+  date?: string;
+  location?: string;
+  summary?: string;
+}
+
+type ObjectShape = { [key: string]: string | undefined };
+
+const csvToJson = (csv: any) => {
   const separator = ",";
   var array = csv.toString().split("\n");
   let result = [];
-  let headers = array[0].split(separator);
+  let headers = array[0].split(separator) as string[];
 
   for (let i = 1; i < array.length - 1; i++) {
-    let obj = {};
+    let obj: ObjectShape = {};
     let str = array[i];
     let s = "";
     let flag = 0;
@@ -21,13 +31,14 @@ const csvToJson = (csv) => {
     let properties = s.split("|");
 
     for (let j in headers) {
-      obj[headers[j]] = properties[j];
+      const header = headers[j];
+      obj[header] = properties[j];
     }
 
     result.push(obj);
   }
 
-  return result;
+  return result as unknown as EntryShape[];
 };
 
 export { csvToJson };

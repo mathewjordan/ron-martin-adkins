@@ -1,7 +1,7 @@
 import { IIIFBuilder } from "iiif-builder";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { resolve } from "path";
-import { csvToJson } from "../../services/csv";
+import { csvToJson, EntryShape } from "../../services/csv";
 import fs from "fs";
 import absoluteUrl from "next-absolute-url";
 
@@ -11,7 +11,7 @@ const handler = (request: NextApiRequest, response: NextApiResponse) => {
 
   const path = resolve(process.cwd(), `assets/assets.csv`);
   const csv = fs.readFileSync(path);
-  const json = csvToJson(csv);
+  const json = csvToJson(csv) as unknown as EntryShape[];
 
   const builder = new IIIFBuilder();
   const newCollection = builder.createCollection(url, (collection) => {
@@ -20,7 +20,7 @@ const handler = (request: NextApiRequest, response: NextApiResponse) => {
       collection.createManifest(
         origin.concat(`/api/manifest/${entry.id}`),
         (manifest) => {
-          manifest.addLabel(entry.title, "en");
+          manifest.addLabel(entry.title as string, "en");
           manifest.addThumbnail({
             id: origin.concat(
               `/api/image/${entry.id}/square/300,/0/default.jpg`

@@ -1,26 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { Label } from "@samvera/nectar-iiif";
 import { styled } from "@stitches/react";
 import * as AspectRatio from "@radix-ui/react-aspect-ratio";
+import { Manifest } from "@iiif/presentation-3";
 
-const Figure = ({ item }) => {
+interface FigureProps {
+  item: Manifest;
+}
+
+const Figure: React.FC<FigureProps> = ({ item }) => {
   const [loaded, setLoaded] = useState(false);
+  const [thumbnail, setThumbnail] = useState("");
 
-  const thumbnail = new URL(item.thumbnail[0].id);
+  useEffect(() => {
+    if (item.thumbnail?.length === 0)
+      setThumbnail(item.thumbnail[0].id as string);
+  }, [item]);
+
+  if (item.thumbnail?.length === 0) return <></>;
+
+  const src = new URL(thumbnail);
+
   return (
     <FigureStyled>
       <Placeholder ratio={1}>
         <Image
-          src={thumbnail.pathname}
+          src={src.pathname}
           alt="0001"
           fill={true}
           onLoad={() => setLoaded(true)}
           className={clsx("source", loaded && "loaded")}
         />
         <Image
-          src={thumbnail.pathname.replace("300", "2")}
+          src={src.pathname.replace("300", "2")}
           alt="0001"
           fill={true}
           className={clsx("placeholder", loaded && "loaded")}
