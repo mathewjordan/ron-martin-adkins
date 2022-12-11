@@ -1,4 +1,4 @@
-id,title,location?,date?,summary?
+id,title,location,date,summary
 0001,Untitled,,,
 0002,Untitled,,,
 0003,"Guardian of Lake Sunipee, VT",,,
