@@ -8,7 +8,7 @@ export interface EntryShape {
 
 type ObjectShape = { [key: string]: string | undefined };
 
-const csvToJson = (csv: any) => {
+const csvToJson = (csv: string) => {
   const separator = ",";
   var array = csv.toString().split("\n");
   let result = [];

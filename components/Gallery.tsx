@@ -10,6 +10,8 @@ const Gallery = () => {
 
   if (!data) return <></>;
 
+  console.log(`data`, data);
+
   return (
     <>
       {data.items.map((item: Manifest) => (

@@ -12,14 +12,14 @@ interface FigureProps {
 
 const Figure: React.FC<FigureProps> = ({ item }) => {
   const [loaded, setLoaded] = useState(false);
-  const [thumbnail, setThumbnail] = useState("");
+  const [thumbnail, setThumbnail] = useState<string | undefined>();
 
   useEffect(() => {
-    if (item.thumbnail?.length === 0)
+    if (item.thumbnail?.length !== 0 && item.thumbnail)
       setThumbnail(item.thumbnail[0].id as string);
   }, [item]);
 
-  if (item.thumbnail?.length === 0) return <></>;
+  if (!thumbnail) return <></>;
 
   const src = new URL(thumbnail);
 

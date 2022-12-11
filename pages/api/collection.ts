@@ -10,7 +10,7 @@ const handler = (request: NextApiRequest, response: NextApiResponse) => {
   const url = origin.concat(request.url as string);
 
   const path = resolve(process.cwd(), `assets/assets.csv`);
-  const csv = fs.readFileSync(path);
+  const csv = fs.readFileSync(path) as unknown as string;
   const json = csvToJson(csv) as unknown as EntryShape[];
 
   const builder = new IIIFBuilder();
