@@ -40,6 +40,13 @@ const handler = (request: NextApiRequest, response: NextApiResponse) => {
           format: "image/jpg",
           height: 1600,
           width: 1600,
+          service: [
+            {
+              id: origin.concat(`/api/image/${entry.id}`),
+              type: "ImageService2",
+              profile: "http://iiif.io/api/image/2/level2.json",
+            },
+          ],
         },
       });
     });
@@ -50,6 +57,7 @@ const handler = (request: NextApiRequest, response: NextApiResponse) => {
     type: "Manifest",
   });
 
+  response.setHeader("Access-Control-Allow-Origin", "*");
   response.status(200).json(jsonManifest);
 };
 

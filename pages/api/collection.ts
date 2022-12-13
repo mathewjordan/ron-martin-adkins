@@ -4,6 +4,7 @@ import { resolve } from "path";
 import { csvToJson, EntryShape } from "../../services/csv";
 import fs from "fs";
 import absoluteUrl from "next-absolute-url";
+import { Collection } from "@iiif/presentation-3";
 
 const handler = (request: NextApiRequest, response: NextApiResponse) => {
   const { origin } = absoluteUrl(request);
@@ -35,10 +36,26 @@ const handler = (request: NextApiRequest, response: NextApiResponse) => {
     );
   });
 
-  const jsonCollection = builder.toPresentation3({
+  const generatedCollection = builder.toPresentation3({
     id: newCollection.id,
     type: "Collection",
-  });
+  }) as Collection;
+
+  const jsonCollection = {
+    ...generatedCollection,
+    items: generatedCollection.items.map((item) => {
+      return {
+        ...item,
+        homepage: [
+          {
+            id: origin.concat(`/photo/${item.id.split("/").pop()}`),
+            type: "Text",
+            label: item.label,
+          },
+        ],
+      };
+    }),
+  };
 
   response.status(200).json(jsonCollection);
 };

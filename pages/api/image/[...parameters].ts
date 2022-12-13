@@ -27,6 +27,9 @@ export const getServerSideProps: GetServerSideProps = async (props) => {
     "Cache-Control",
     "public, s-maxage=3600, stale-while-revalidate=86000"
   );
+  props.res.setHeader("Access-Control-Allow-Origin", "*");
+  props.res.setHeader("Access-Control-Allow-Headers", "*");
+  props.res.setHeader("Access-Control-Allow-Credentials", "true");
 
   return {
     props: {},

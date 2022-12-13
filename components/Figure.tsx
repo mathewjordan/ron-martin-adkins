@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
-import { Label } from "@samvera/nectar-iiif";
 import { styled } from "@stitches/react";
 import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 import { Manifest } from "@iiif/presentation-3";
@@ -25,54 +24,63 @@ const Figure: React.FC<FigureProps> = ({ item }) => {
 
   return (
     <FigureStyled>
-      <Placeholder ratio={1}>
-        <Image
-          src={src.pathname}
-          alt="0001"
-          fill={true}
-          onLoad={() => setLoaded(true)}
-          className={clsx("source", loaded && "loaded")}
-        />
-        <Image
-          src={src.pathname.replace("300", "2")}
-          alt="0001"
-          fill={true}
-          className={clsx("placeholder", loaded && "loaded")}
-        />
+      <Placeholder>
+        <AspectRatio.Root ratio={1}>
+          <Image
+            src={src.pathname}
+            alt="0001"
+            fill={true}
+            onLoad={() => setLoaded(true)}
+            className={clsx("source", loaded && "loaded")}
+          />
+          <Image
+            src={src.pathname.replace("300", "3")}
+            alt="0001"
+            fill={true}
+            className={clsx("placeholder", loaded && "loaded")}
+          />
+        </AspectRatio.Root>
       </Placeholder>
-      <figcaption>
-        <Label label={item.label} />
-      </figcaption>
     </FigureStyled>
   );
 };
 
-const FigureStyled = styled("figure", {
-  width: "150px",
-  "img.source": {
-    opacity: 0,
-    transition: "all 1s ease-in-out",
-
-    "&.loaded": {
-      opacity: 1,
-    },
-  },
-
-  "img.placeholder": {
-    opacity: 1,
-    transition: "all 1s ease-in-out",
-
-    "&.loaded": {
-      opacity: 0,
-    },
-  },
+const Placeholder = styled("div", {
+  display: "flex",
+  width: "100px",
+  height: "100px",
+  backgroundColor: "#aaa",
+  borderRadius: "5px",
+  boxShadow: "3px 3px 8px #0003",
 });
 
-const Placeholder = styled(AspectRatio.Root, {
+const FigureStyled = styled("figure", {
   display: "flex",
-  width: "150",
-  height: "150",
-  backgroundColor: "#aaa",
+  padding: "0",
+  margin: "0",
+  cursor: "pointer",
+
+  img: {
+    borderRadius: "5px",
+
+    "&.source": {
+      opacity: 0,
+      transition: "all 0.5s ease-in-out",
+
+      "&.loaded": {
+        opacity: 1,
+      },
+    },
+
+    "&.placeholder": {
+      opacity: 1,
+      transition: "all 1s ease-in-out",
+
+      "&.loaded": {
+        opacity: 0,
+      },
+    },
+  },
 });
 
 export default Figure;
