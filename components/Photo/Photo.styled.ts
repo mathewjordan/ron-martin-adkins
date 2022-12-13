@@ -16,6 +16,7 @@ const PhotoBackdrop = styled("div", {
 const PhotoImageWrapper = styled("div", {
   width: "600px",
   height: "600px",
+  maxWidth: "100%",
   position: "relative",
   margin: "3rem auto",
 });

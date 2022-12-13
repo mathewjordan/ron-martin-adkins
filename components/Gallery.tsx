@@ -7,13 +7,13 @@ import Link from "next/link";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const Gallery = () => {
+const Gallery = ({ isHome }: { isHome?: boolean }) => {
   const { data, error, isLoading } = useSWR("/api/collection", fetcher);
 
   if (!data) return <></>;
 
   return (
-    <GalleryStyled>
+    <GalleryStyled isHome={isHome}>
       {data.items.map((item: Manifest) => (
         <Link
           href={
@@ -38,6 +38,16 @@ const GalleryStyled = styled("div", {
   bottom: "0",
   overflowX: "scroll",
   display: "flex",
+  transition: "500ms all ease-in-out",
+
+  variants: {
+    isHome: {
+      true: {
+        transform: "scale(1.5)",
+        bottom: "38.2%",
+      },
+    },
+  },
 
   a: {
     display: "flex",
