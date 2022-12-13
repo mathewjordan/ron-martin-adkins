@@ -43,7 +43,7 @@ const GalleryStyled = styled("div", {
   variants: {
     isHome: {
       true: {
-        transform: "scale(1.5)",
+        transform: "scale(1.618)",
         bottom: "38.2%",
       },
     },

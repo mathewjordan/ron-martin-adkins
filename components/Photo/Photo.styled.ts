@@ -30,7 +30,7 @@ const PhotoImage = styled(Image, {
 const Underlay = styled("div", {
   background: "linear-gradient(0deg, #fff 0%, #fff0 100%);",
   width: "100%",
-  height: "calc(200px)",
+  height: "61.8vh",
   position: "fixed",
   bottom: "0",
   left: "0",

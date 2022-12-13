@@ -23,8 +23,8 @@ const Photo: React.FC<EntryShape> = ({ id }) => {
       <PhotoImageWrapper>
         <PhotoImage src={src} alt="" fill={true} />
       </PhotoImageWrapper>
-      <Underlay />
-      <PhotoBackdrop css={{ backgroundImage: `url(${background})` }} />
+      {/* <Underlay /> */}
+      {/* <PhotoBackdrop css={{ backgroundImage: `url(${background})` }} /> */}
     </>
   );
 };

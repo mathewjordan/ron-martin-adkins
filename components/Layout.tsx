@@ -1,13 +1,12 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
 import Gallery from "./Gallery";
+import Header from "./Header";
 
 export default function Layout({ children }: { children: any }) {
   return (
     <>
-      <header>
-        <Link href="/">Photography of Ron Martin-Adkins</Link>{" "}
-      </header>
+      <Header />
       <main>{children}</main>
       <Gallery isHome={children?.props?.isHome} />
     </>
