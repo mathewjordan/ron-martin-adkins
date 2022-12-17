@@ -4,23 +4,37 @@ import "swiper/css/pagination";
 
 import { Autoplay, Keyboard, Navigation, Pagination } from "swiper";
 import { Manifest } from "@iiif/presentation-3";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import Figure from "./Figure";
 import { styled } from "@stitches/react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useRouter } from "next/router";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Gallery = ({ isHome }: { isHome?: boolean }) => {
+  const router = useRouter();
+  const [swiperRef, setSwiperRef] = useState<any>();
+
   const { data, error, isLoading } = useSWR("/api/collection", fetcher);
+
+  useEffect(() => {
+    console.log(swiperRef?.activeIndex);
+    // if (data) router.push(data?.items[swiperRef?.activeIndex].homepage[0].id);
+  }, [swiperRef?.activeIndex]);
+
+  const slideTo = (index: number) => {
+    swiperRef.slideTo(swiperRef.clickedIndex);
+  };
 
   if (!data) return <></>;
 
   return (
     <GalleryStyled isHome={isHome}>
       <Swiper
+        onSwiper={setSwiperRef}
         keyboard={{ enabled: true }}
         loop={true}
         modules={[Autoplay, Keyboard, Pagination, Navigation]}
@@ -35,7 +49,7 @@ const Gallery = ({ isHome }: { isHome?: boolean }) => {
           dynamicBullets: true,
         }}
       >
-        {data.items.map((item: Manifest) => (
+        {data.items.map((item: Manifest, index: number) => (
           <SwiperSlide key={item.id} style={{ padding: "2.618rem 0" }}>
             <Link
               href={
@@ -44,6 +58,7 @@ const Gallery = ({ isHome }: { isHome?: boolean }) => {
                   : "/"
               }
               key={item.id}
+              onClick={() => slideTo(index)}
             >
               <Figure item={item} />
             </Link>
@@ -71,7 +86,6 @@ const GalleryStyled = styled("div", {
 
   ".swiper-slide": {
     filter: "grayscale(1) contrast(0.5)",
-    transition: "500ms all ease-in-out",
 
     "&-active": {
       filter: "grayscale(0) brightness(1)",
