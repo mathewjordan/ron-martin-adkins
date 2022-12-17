@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { styled } from "@stitches/react";
-import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 import { Manifest } from "@iiif/presentation-3";
+import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 
 interface FigureProps {
   item: Manifest;
@@ -23,9 +23,9 @@ const Figure: React.FC<FigureProps> = ({ item }) => {
   const src = new URL(thumbnail);
 
   return (
-    <FigureStyled>
-      <Placeholder>
-        <AspectRatio.Root ratio={1}>
+    <AspectRatio.Root ratio={1}>
+      <FigureStyled>
+        <Placeholder>
           <Image
             src={src.pathname}
             alt="0001"
@@ -39,18 +39,18 @@ const Figure: React.FC<FigureProps> = ({ item }) => {
             fill={true}
             className={clsx("placeholder", loaded && "loaded")}
           />
-        </AspectRatio.Root>
-      </Placeholder>
-    </FigureStyled>
+        </Placeholder>
+      </FigureStyled>
+    </AspectRatio.Root>
   );
 };
 
 const Placeholder = styled("div", {
   display: "flex",
-  width: "100px",
-  height: "100px",
   backgroundColor: "#aaa",
   borderRadius: "5px",
+  width: "100%",
+  height: "100%",
   boxShadow: "3px 3px 8px #0003",
 });
 
@@ -58,6 +58,8 @@ const FigureStyled = styled("figure", {
   display: "flex",
   padding: "0",
   margin: "0",
+  width: "100%",
+  height: "100%",
   cursor: "pointer",
 
   img: {

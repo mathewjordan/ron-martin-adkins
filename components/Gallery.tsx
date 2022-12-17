@@ -1,9 +1,15 @@
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+import { Autoplay, Keyboard, Navigation, Pagination } from "swiper";
 import { Manifest } from "@iiif/presentation-3";
 import React from "react";
 import useSWR from "swr";
 import Figure from "./Figure";
 import { styled } from "@stitches/react";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -14,31 +20,64 @@ const Gallery = ({ isHome }: { isHome?: boolean }) => {
 
   return (
     <GalleryStyled isHome={isHome}>
-      {data.items.map((item: Manifest) => (
-        <Link
-          href={
-            item?.homepage && item?.homepage[0] && item?.homepage[0].id
-              ? item?.homepage[0].id
-              : "/"
-          }
-          key={item.id}
-        >
-          <Figure item={item} />
-        </Link>
-      ))}
+      <Swiper
+        keyboard={{ enabled: true }}
+        loop={true}
+        modules={[Autoplay, Keyboard, Pagination, Navigation]}
+        preloadImages={true}
+        slidesPerView={9}
+        centeredSlides={true}
+        navigation={true}
+        spaceBetween={19}
+        mousewheel={true}
+        speed={800}
+        pagination={{
+          dynamicBullets: true,
+        }}
+      >
+        {data.items.map((item: Manifest) => (
+          <SwiperSlide key={item.id} style={{ padding: "2.618rem 0" }}>
+            <Link
+              href={
+                item?.homepage && item?.homepage[0] && item?.homepage[0].id
+                  ? item?.homepage[0].id
+                  : "/"
+              }
+              key={item.id}
+            >
+              <Figure item={item} />
+            </Link>
+            <GalleryItemSpacer>&nbsp;</GalleryItemSpacer>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </GalleryStyled>
   );
 };
 
+const GalleryItemSpacer = styled("span", {
+  display: "flex",
+  height: "0",
+  width: "100%",
+});
+
 const GalleryStyled = styled("div", {
-  padding: "2.618rem",
   position: "absolute",
   zIndex: "1",
   width: "100%",
   bottom: "0",
-  overflowX: "scroll",
   display: "flex",
   transition: "500ms all ease-in-out",
+
+  ".swiper-slide": {
+    filter: "grayscale(1) contrast(0.5)",
+    transition: "500ms all ease-in-out",
+
+    "&-active": {
+      filter: "grayscale(0) brightness(1)",
+      opacity: "1",
+    },
+  },
 
   variants: {
     isHome: {
@@ -51,18 +90,13 @@ const GalleryStyled = styled("div", {
 
   a: {
     display: "flex",
-    marginRight: "1.618rem",
-    transform: "translateY(0) scale(1)",
+    transform: "translate(0) scale(1)",
     transition: "transform 100ms ease-in-out",
 
     "&:hover": {
-      transform: "translateY(-1px) scale(1.04)",
+      transform: "translate(-3px) scale(1.05)",
       borderRadius: "3px",
-      boxShadow: "2px 2px 5px #0004",
-    },
-
-    "&:last-child": {
-      marginRight: "0",
+      // boxShadow: "2px 2px 5px #0004",
     },
   },
 });
