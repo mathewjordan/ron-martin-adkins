@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
-import { styled } from "@stitches/react";
+import { styled } from "../stitches";
 import { Manifest } from "@iiif/presentation-3";
 import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 

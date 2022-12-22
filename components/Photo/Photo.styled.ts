@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { styled } from "@stitches/react";
+import { styled } from "../../stitches";
 
 const PhotoBackdrop = styled("div", {
   width: "100%",
@@ -22,9 +22,9 @@ const PhotoImageWrapper = styled("div", {
 });
 
 const PhotoImage = styled(Image, {
-  boxShadow: "8px 8px 21px #0003",
+  boxShadow: "8px 8px 200px #fff3",
   borderRadius: "5px",
-  objectFit: "contain",
+  objectFit: "cover",
 });
 
 const Underlay = styled("div", {

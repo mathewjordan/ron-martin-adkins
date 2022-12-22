@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import OpenSeadragon from "openseadragon";
-import { styled } from "@stitches/react";
+import { styled } from "../stitches";
 import { getInfoResponse } from "../services/iiif";
 import { v4 as uuidv4 } from "uuid";
 

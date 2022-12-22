@@ -1,5 +1,6 @@
-import { styled } from "@stitches/react";
+import { styled } from "../stitches";
 import Link from "next/link";
+import { grassA } from "@radix-ui/colors";
 
 const Header = () => {
   return (
@@ -18,15 +19,23 @@ const HeaderTitle = styled("span", {
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  lineHeight: "1.382em",
+  lineHeight: "1em",
   fontWeight: "800",
-  fontSize: "1.618rem",
+  fontSize: "$gr7",
+  textDecoration: "none",
+  fontFamily: "$ronSerif",
+  textShadow: `8px 8px 21px ${grassA.grassA11}`,
 
-  em: { display: "block", fontWeight: "300", fontSize: "1rem" },
+  em: {
+    display: "block",
+    fontWeight: "300",
+    fontSize: "$gr4",
+    fontStyle: "italic",
+  },
 });
 
 const HeaderStyled = styled("header", {
-  padding: "2.618rem 1rem",
+  padding: "$gr4 0",
   display: "flex",
   justifyContent: "center",
 });

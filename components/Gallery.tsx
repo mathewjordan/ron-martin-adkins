@@ -4,10 +4,10 @@ import "swiper/css/pagination";
 
 import { Autoplay, Keyboard, Navigation, Pagination } from "swiper";
 import { Manifest } from "@iiif/presentation-3";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import Figure from "./Figure";
-import { styled } from "@stitches/react";
+import { styled } from "../stitches";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRouter } from "next/router";
@@ -15,17 +15,11 @@ import { useRouter } from "next/router";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Gallery = ({ isHome }: { isHome?: boolean }) => {
-  const router = useRouter();
   const [swiperRef, setSwiperRef] = useState<any>();
 
-  const { data, error, isLoading } = useSWR("/api/collection", fetcher);
+  const { data } = useSWR("/api/collection", fetcher);
 
-  useEffect(() => {
-    console.log(swiperRef?.activeIndex);
-    // if (data) router.push(data?.items[swiperRef?.activeIndex].homepage[0].id);
-  }, [swiperRef?.activeIndex]);
-
-  const slideTo = (index: number) => {
+  const slideTo = () => {
     swiperRef.slideTo(swiperRef.clickedIndex);
   };
 
@@ -37,13 +31,13 @@ const Gallery = ({ isHome }: { isHome?: boolean }) => {
         onSwiper={setSwiperRef}
         keyboard={{ enabled: true }}
         loop={true}
+        loop
         modules={[Autoplay, Keyboard, Pagination, Navigation]}
         preloadImages={true}
         slidesPerView={9}
         centeredSlides={true}
         navigation={true}
         spaceBetween={19}
-        mousewheel={true}
         speed={800}
         pagination={{
           dynamicBullets: true,
@@ -58,7 +52,7 @@ const Gallery = ({ isHome }: { isHome?: boolean }) => {
                   : "/"
               }
               key={item.id}
-              onClick={() => slideTo(index)}
+              onClick={() => slideTo()}
             >
               <Figure item={item} />
             </Link>
@@ -85,10 +79,7 @@ const GalleryStyled = styled("div", {
   transition: "500ms all ease-in-out",
 
   ".swiper-slide": {
-    filter: "grayscale(1) contrast(0.5)",
-
     "&-active": {
-      filter: "grayscale(0) brightness(1)",
       opacity: "1",
     },
   },
