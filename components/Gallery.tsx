@@ -10,7 +10,6 @@ import Figure from "./Figure";
 import { styled } from "../stitches";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useRouter } from "next/router";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -31,9 +30,7 @@ const Gallery = ({ isHome }: { isHome?: boolean }) => {
         onSwiper={setSwiperRef}
         keyboard={{ enabled: true }}
         loop={true}
-        loop
         modules={[Autoplay, Keyboard, Pagination, Navigation]}
-        preloadImages={true}
         slidesPerView={9}
         centeredSlides={true}
         navigation={true}
