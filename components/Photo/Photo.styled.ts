@@ -8,7 +8,7 @@ const PhotoBackdrop = styled("div", {
   top: "0",
   left: "0",
   zIndex: "-1",
-  opacity: "0.382",
+  opacity: "0.5",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
 });
@@ -19,6 +19,7 @@ const PhotoImageWrapper = styled("div", {
   maxWidth: "100%",
   position: "relative",
   margin: "3rem auto",
+  zIndex: "1",
 });
 
 const PhotoImage = styled(Image, {

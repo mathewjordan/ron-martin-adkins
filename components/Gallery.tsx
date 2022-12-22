@@ -2,7 +2,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import { Autoplay, Keyboard, Navigation, Pagination } from "swiper";
+import { Autoplay, Keyboard, Navigation } from "swiper";
 import { Manifest } from "@iiif/presentation-3";
 import React, { useState } from "react";
 import useSWR from "swr";
@@ -30,18 +30,15 @@ const Gallery = ({ isHome }: { isHome?: boolean }) => {
         onSwiper={setSwiperRef}
         keyboard={{ enabled: true }}
         loop={true}
-        modules={[Autoplay, Keyboard, Pagination, Navigation]}
+        modules={[Autoplay, Keyboard, Navigation]}
         slidesPerView={9}
         centeredSlides={true}
         navigation={true}
         spaceBetween={19}
         speed={800}
-        pagination={{
-          dynamicBullets: true,
-        }}
       >
         {data.items.map((item: Manifest, index: number) => (
-          <SwiperSlide key={item.id} style={{ padding: "2.618rem 0" }}>
+          <SwiperSlide key={item.id} style={{ padding: "1rem 0" }}>
             <Link
               href={
                 item?.homepage && item?.homepage[0] && item?.homepage[0].id
@@ -98,7 +95,6 @@ const GalleryStyled = styled("div", {
     "&:hover": {
       transform: "translate(-3px) scale(1.05)",
       borderRadius: "3px",
-      // boxShadow: "2px 2px 5px #0004",
     },
   },
 });

@@ -24,20 +24,22 @@ const HeaderTitle = styled("span", {
   fontSize: "$gr7",
   textDecoration: "none",
   fontFamily: "$ronSerif",
-  textShadow: `8px 8px 21px ${grassA.grassA11}`,
+  textShadow: `5px 5px 13px #fff3`,
 
   em: {
     display: "block",
     fontWeight: "300",
-    fontSize: "$gr4",
+    fontSize: "$gr3",
     fontStyle: "italic",
+    color: "$sage11",
   },
 });
 
 const HeaderStyled = styled("header", {
-  padding: "$gr4 0",
+  padding: "$gr6 0",
   display: "flex",
   justifyContent: "center",
+  background: "linear-gradient(180deg, #fffc 0%, #fff0 100%);",
 });
 
 export default Header;

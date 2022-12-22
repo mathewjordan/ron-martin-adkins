@@ -4,7 +4,7 @@ const defaults = {
   body: {
     margin: 0,
     padding: 0,
-    backgroundColor: "$grass12",
+    backgroundColor: "$grass1",
     color: "$sage12",
   },
 
@@ -16,7 +16,7 @@ const defaults = {
   },
 
   "a, a:visited": {
-    color: "$grass1",
+    color: "$grass12",
     textDecoration: "none",
   },
 };
