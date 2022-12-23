@@ -14,12 +14,12 @@ const PhotoBackdrop = styled("div", {
 });
 
 const PhotoImageWrapper = styled("div", {
-  width: "600px",
-  height: "600px",
+  width: "100%",
+  height: "100%",
   maxWidth: "100%",
-  position: "relative",
-  margin: "3rem auto",
-  zIndex: "1",
+  position: "fixed",
+  top: "0",
+  zIndex: "0",
 });
 
 const PhotoImage = styled(Image, {
@@ -29,11 +29,11 @@ const PhotoImage = styled(Image, {
 });
 
 const Underlay = styled("div", {
-  background: "linear-gradient(0deg, #fff 0%, #fff0 100%);",
+  background: "linear-gradient(180deg, #fff 0,  #fffc 38.2%, #fff0 100%);",
   width: "100%",
-  height: "61.8vh",
+  height: "300px",
   position: "fixed",
-  bottom: "0",
+  top: "0",
   left: "0",
 });
 

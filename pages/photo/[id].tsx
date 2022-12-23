@@ -8,14 +8,21 @@ import {
   PhotoImageWrapper,
   Underlay,
 } from "../../components/Photo/Photo.styled";
+import Router, { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const PanZoom = dynamic(() => import("../../components/PanZoom"), {
   ssr: false,
 });
 
-const Photo: React.FC<EntryShape> = ({ id }) => {
+export const Photo = ({ id, isHome }: { id: string; isHome: boolean }) => {
+  const router = useRouter();
   const background = `/api/image/${id}/full/3,/0/default.jpg`;
   const src = `/api/image/${id}/full/1600,/0/default.jpg`;
+
+  useEffect(() => {
+    if (id === `0043` && !isHome) router.push(`/`);
+  }, [id, isHome, router]);
 
   return (
     <>

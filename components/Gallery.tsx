@@ -25,20 +25,21 @@ const Gallery = ({ isHome }: { isHome?: boolean }) => {
   if (!data) return <></>;
 
   return (
-    <GalleryStyled isHome={isHome}>
+    <GalleryStyled>
       <Swiper
         onSwiper={setSwiperRef}
         keyboard={{ enabled: true }}
         loop={true}
         modules={[Autoplay, Keyboard, Navigation]}
-        slidesPerView={9}
+        slidesPerView={7}
         centeredSlides={true}
+        initialSlide={42}
         navigation={true}
         spaceBetween={19}
         speed={800}
       >
         {data.items.map((item: Manifest, index: number) => (
-          <SwiperSlide key={item.id} style={{ padding: "1rem 0" }}>
+          <SwiperSlide key={item.id}>
             <Link
               href={
                 item?.homepage && item?.homepage[0] && item?.homepage[0].id
@@ -71,19 +72,13 @@ const GalleryStyled = styled("div", {
   bottom: "0",
   display: "flex",
   transition: "500ms all ease-in-out",
+  boxShadow: "5px 5px 11px #000a",
+  backgroundColor: "$sageA10",
+  padding: "$gr3 0",
 
   ".swiper-slide": {
     "&-active": {
       opacity: "1",
-    },
-  },
-
-  variants: {
-    isHome: {
-      true: {
-        transform: "scale(1.618)",
-        bottom: "38.2%",
-      },
     },
   },
 
@@ -94,7 +89,6 @@ const GalleryStyled = styled("div", {
 
     "&:hover": {
       transform: "translate(-3px) scale(1.05)",
-      borderRadius: "3px",
     },
   },
 });

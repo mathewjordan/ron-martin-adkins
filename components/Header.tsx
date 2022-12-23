@@ -36,10 +36,12 @@ const HeaderTitle = styled("span", {
 });
 
 const HeaderStyled = styled("header", {
-  padding: "$gr6 0",
+  padding: "$gr4 0",
   display: "flex",
   justifyContent: "center",
   background: "linear-gradient(180deg, #fffc 0%, #fff0 100%);",
+  position: "relative",
+  zIndex: "1",
 });
 
 export default Header;

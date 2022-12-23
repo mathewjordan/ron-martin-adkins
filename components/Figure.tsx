@@ -48,7 +48,6 @@ const Figure: React.FC<FigureProps> = ({ item }) => {
 const Placeholder = styled("div", {
   display: "flex",
   backgroundColor: "#aaa",
-  borderRadius: "5px",
   width: "100%",
   height: "100%",
   boxShadow: "3px 3px 8px #0003",
@@ -63,8 +62,6 @@ const FigureStyled = styled("figure", {
   cursor: "pointer",
 
   img: {
-    borderRadius: "5px",
-
     "&.source": {
       opacity: 0,
       transition: "all 0.5s ease-in-out",

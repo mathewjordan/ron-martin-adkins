@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: any }) {
     <>
       <Header />
       <main>{children}</main>
-      <Gallery isHome={children?.props?.isHome} />
+      <Gallery />
     </>
   );
 }
